@@ -3,7 +3,7 @@
       <div class="col-xs-12 col-sm-6">
           <my-server-list 
             :servers="servers"
-            :onServerSelected="selectedServerChanged">
+            @selectedServerChanged="onSelectedServerChanged">
 
           </my-server-list>
       </div>
@@ -36,8 +36,13 @@
     },
 
     methods: {
-      selectedServerChanged(server) {
-        this.selectedServer = server;
+      onSelectedServerChanged(eventData) {
+        const selectedServer = this.servers.find(server => server.id === eventData);
+        if (!selectedServer) {
+          throw new Error(`Unable to find a server having id ${eventData}`);
+        }
+
+        this.selectedServer = selectedServer;
       },
 
       serverStatusUpdated(serverId, updatedStatus) {

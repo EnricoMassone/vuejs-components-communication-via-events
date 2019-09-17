@@ -4,7 +4,7 @@
         v-for="server in servers" 
         :key="server.id"
         :server="server"
-        :onServerSelected="onServerSelected">
+        @serverSelected="onSelectedServerChanged">
       </my-server>
   </ul>  
 </template>
@@ -17,10 +17,12 @@
       servers: {
         type: Array,
         required: true
-      },
-      onServerSelected: {
-        type: Function,
-        required: true
+      }
+    },
+
+    methods: {
+      onSelectedServerChanged(eventData) {
+        this.$emit("selectedServerChanged", eventData);
       }
     },
 
