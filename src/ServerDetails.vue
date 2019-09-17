@@ -36,16 +36,18 @@
 
     methods: {
       serverStatusChanged(event) {
-        this.onServerStatusChanged(this.server.id, event.target.value);
+        const newServerStatus = event.target.value;
+        const { id: serverId } = this.server;
+
+        this.$emit("serverStatusChanged", {
+          serverId,
+          status: newServerStatus
+        });
       }
     },
 
     props: {
-      server: Object,
-      onServerStatusChanged: {
-        type: Function,
-        required: true
-      }
+      server: Object
     }
   }
 </script>

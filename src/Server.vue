@@ -32,4 +32,8 @@
   li {
     cursor: pointer;
   }
+
+  li:hover {
+    background-color: lightgray;
+  }
 </style>

@@ -10,7 +10,7 @@
       <div class="col-xs-12 col-sm-6">
           <my-server-details 
             :server="selectedServer"
-            :onServerStatusChanged="serverStatusUpdated">
+            @serverStatusChanged="onServerStatusChanged">
 
           </my-server-details>
       </div>
@@ -45,7 +45,9 @@
         this.selectedServer = selectedServer;
       },
 
-      serverStatusUpdated(serverId, updatedStatus) {
+      onServerStatusChanged(eventData) {
+        const {serverId, status: updatedStatus} = eventData;
+        
         this.servers = this.servers.map(server => {
           if (server.id === serverId) {
             return {
@@ -56,6 +58,10 @@
             return server;
           }
         });
+
+        if (this.selectedServer) {
+          this.selectedServer = this.servers.find(server => server.id === this.selectedServer.id);
+        }
       }
     },
 
